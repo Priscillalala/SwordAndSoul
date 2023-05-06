@@ -21,7 +21,7 @@ namespace SwordAndSoul
         {
             assets = AssetBundle.LoadFromFile(this.GetRelativePath("swordandsoulassets"));
 
-            GameObject swordAndSoul = new GameObject("SwordAndSoul", typeof(Items), typeof(Food));
+            GameObject swordAndSoul = new GameObject("SwordAndSoul", typeof(Items), typeof(Sets), typeof(Food));
             DontDestroyOnLoad(swordAndSoul);
         }
     }
