@@ -10,12 +10,18 @@ namespace SwordAndSoul
     {
         public static MySetEffectData JohnWick { get; private set; }
         private SetEffect_JohnWick setEffect_JohnWick;
+        public static MySetEffectData MasterSwordsman { get; private set; }
+
 
         private void Awake()
         {
             if (Items.TacticalSuit)
             {
-                JohnWick = CreateJohnWick();
+                //JohnWick = CreateJohnWick();
+            }
+            if (Items.PaperArmy)
+            {
+                MasterSwordsman = CreateMasterSwordsman();
             }
 
             Localization();
@@ -24,9 +30,22 @@ namespace SwordAndSoul
         private void Localization()
         {
             LocalizationAPI.AddMany(
-                (JohnWick.aName, "Excommunicado"),
-                (JohnWick.aDescription, "."),
-                (setEffect_JohnWick.effectDestriptionKey, $"Block all ranged attacks")
+                (MasterSwordsman?.aName, "Master Swordsman"),
+                (MasterSwordsman?.aDescription, "May you strike once and strike true."),
+                (JohnWick?.aName, "Excommunicado"),
+                (JohnWick?.aDescription, "."),
+                (setEffect_JohnWick?.effectDestriptionKey, $"Block all ranged attacks")
+                );
+        }
+
+        private MySetEffectData CreateMasterSwordsman()
+        {
+            return SetEffectAPI.AddNew(
+                name: "GS_MasterSwordsman",
+                icon: SwordAndSoul.assets.LoadAsset<Sprite>("MasterSwordsman"),
+                mainWeapon: Resources.Load<MyWeaponData>("items/0281_KujiKanesada"),
+                accessories: new[] { Items.PaperArmy },
+                effects: new[] { Effects.IGNORE_DEFENSE(100) }
                 );
         }
 

@@ -17,11 +17,12 @@ namespace SwordAndSoul
     public class SwordAndSoul : BaseUnityPlugin
     {
         public static AssetBundle assets { get; private set; }
+
         public void Awake()
         {
             assets = AssetBundle.LoadFromFile(this.GetRelativePath("swordandsoulassets"));
 
-            GameObject swordAndSoul = new GameObject("SwordAndSoul", typeof(Items), typeof(Sets), typeof(Food));
+            GameObject swordAndSoul = new GameObject("SwordAndSoul", typeof(Costumes), typeof(Items), typeof(Sets), typeof(Food));
             DontDestroyOnLoad(swordAndSoul);
         }
     }

@@ -14,12 +14,15 @@ namespace SwordAndSoul
         private Accessory_Stimulants accessory_Stimulants;
         public static MyAccessoryData TacticalSuit { get; private set; }
         private Accessory_TacticalSuit accessory_TacticalSuit;
+        public static MyAccessoryData PaperArmy { get; private set; }
+        private Accessory_PaperArmy accessory_PaperArmy;
 
         private void Awake()
         {
             LotteryTicket = CreateLotteryTicket();
             Stimulants = CreateStimulants();
             TacticalSuit = CreateTacticalSuit();
+            PaperArmy = CreatePaperArmy();
 
             Localization();
         }
@@ -27,6 +30,9 @@ namespace SwordAndSoul
         private void Localization()
         {
             LocalizationAPI.AddMany(
+                (PaperArmy.aName, "Paper Army"),
+                (PaperArmy.aDescription, "Death by one thousand cuts."),
+                (accessory_PaperArmy.effectDestriptionKey, $"Increase all stats by +{accessory_PaperArmy.bonus}"),
                 (TacticalSuit.aName, "Tactical Suit"),
                 (TacticalSuit.aDescription, "Made with the finest materials. And it has SO many pockets. That's what makes it awesome."),
                 (accessory_TacticalSuit.effectDestriptionKey, $"Access your inventory while in battle"),
@@ -36,6 +42,22 @@ namespace SwordAndSoul
                 (LotteryTicket.aName, "Lotto Ticket"),
                 (LotteryTicket.aDescription, "90% of gamblers quit right before they're about to hit it big."),
                 (accessory_LotteryTicket.effectDestriptionKey, $"{accessory_LotteryTicket.chance}% chance to gain an additional {accessory_LotteryTicket.goldReward * 10} gold")
+                );
+        }
+
+        private MyAccessoryData CreatePaperArmy()
+        {
+            GameObject paperArmyPrefab = PrefabAPI.CreatePrefab("PaperArmy");
+            paperArmyPrefab.AddComponent(out accessory_PaperArmy);
+            accessory_PaperArmy.effectDestriptionKey = "Accessory_GS_PaperArmy";
+            accessory_PaperArmy.bonus = 1;
+
+            return ItemAPI.AddNewAccessory(
+                name: "GS_PaperArmy",
+                rarity: ItemRarityTier.LEGEND,
+                price: 7000,
+                icon: SwordAndSoul.assets.LoadAsset<Sprite>("PaperArmy"),
+                prefab: paperArmyPrefab
                 );
         }
 
